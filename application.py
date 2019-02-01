@@ -45,5 +45,5 @@ def index():
     return render_template('index.html', form=form)
 
 if __name__ == '__main__':
-    application.debug = True
-    application.run()
+    app.debug = True
+    app.run()
