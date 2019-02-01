@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+
+{% block styles %}
+{{super()}}
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>
+                <span class="glyphicon glyphicon-flash orange"></span>
+                    Maturity Review Data Process<span class="glyphicon glyphicon-flash orange"></span>
+            </h1>
+            <p class="lead">Upload a raw export from airtable as a CSV file</p>
+        </div>
+    </div>
+     {{wtf.quick_form(form)}}
+{%- endblock %}
