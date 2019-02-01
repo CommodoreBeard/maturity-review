@@ -1,5 +1,5 @@
 import unittest
-from csv_parser import parse, remove_nulls, gen_weighted_score, gen_max_weighted_score, gen_total_max_weighted_score_per_topic, gen_maturity, gen_avg_maturity
+from csv_parser import parse, remove_nulls, gen_weighted_score, gen_max_weighted_score, gen_total_max_weighted_score_per_topic, gen_maturity, gen_avg_maturity, format_for_chart
 from write_csv import write
 
 class CsvParseSpec(unittest.TestCase):
@@ -71,6 +71,20 @@ class CsvParseSpec(unittest.TestCase):
         parsed = gen_total_max_weighted_score_per_topic(parsed)
         parsed = gen_maturity(parsed)
         actual = gen_avg_maturity(parsed)
+        self.assertEqual(actual[0]["AverageMaturity"], 100)
+        self.assertEqual(actual[40]["AverageMaturity"], 80.86834733893559)
+        self.assertEqual(actual[48]["AverageMaturity"], 83.33333333333333)
+
+    def test_final(self):
+        parsed = parse(self.wellformatted_csv_path)
+        parsed = remove_nulls(parsed)
+        parsed = gen_weighted_score(parsed)
+        parsed = gen_max_weighted_score(parsed)
+        parsed = gen_total_max_weighted_score_per_topic(parsed)
+        parsed = gen_maturity(parsed)
+        parsed = gen_avg_maturity(parsed)
+        actual = format_for_chart(parsed)
+        write(actual, "output.csv")
         self.assertEqual(actual[0]["AverageMaturity"], 100)
         self.assertEqual(actual[40]["AverageMaturity"], 80.86834733893559)
         self.assertEqual(actual[48]["AverageMaturity"], 83.33333333333333)

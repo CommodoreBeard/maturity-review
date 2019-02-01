@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 
 from forms import CsvForm
 from csv_parser import parse, remove_nulls, gen_weighted_score, \
-    gen_max_weighted_score, gen_total_max_weighted_score_per_topic, gen_maturity, gen_avg_maturity
+    gen_max_weighted_score, gen_total_max_weighted_score_per_topic, gen_maturity, gen_avg_maturity, format_for_chart
 from write_csv import write
 
 application = Flask(__name__)
@@ -36,11 +36,17 @@ def index():
         parsed = gen_total_max_weighted_score_per_topic(parsed)
         parsed = gen_maturity(parsed)
         parsed = gen_avg_maturity(parsed)
-        write(parsed, os.path.join(
-            application.instance_path, 'processed', "processed.csv"))
+        # write(parsed, os.path.join(
+        #     application.instance_path, 'processed', "processed.csv"))
 
-        return send_from_directory(directory=os.path.join(
-            application.instance_path, 'processed'), filename="processed.csv")
+        # return send_from_directory(directory=os.path.join(
+        #     application.instance_path, 'processed'), filename="processed.csv")
+
+        final = format_for_chart(parsed)
+        labels = list(final[0].keys())
+        values = list(final[0].values())
+        return render_template('chart.html', title="Maturity Review", max=100, labels=labels, values=values)
+
 
     return render_template('index.html', form=form)
 

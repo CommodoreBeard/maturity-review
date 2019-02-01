@@ -28,15 +28,6 @@ def gen_max_weighted_score(parsed_csv):
         row["MaxWeightedScore"] = 2 * int(row["Impact"]) * ( 1 + 1 / int(row["Level"]) )
     return transform
 
-def gen_max_weighted_score(parsed_csv):
-    # Max Weighted Score = MaxLevel (2) * Impact * (1+1/Level)
-    transform = copy.deepcopy(parsed_csv)
-    for row in transform:
-        if (row["Impact"] == '' or row["Level"] == ''):
-            continue
-        row["MaxWeightedScore"] = 2 * int(row["Impact"]) * ( 1 + 1 / int(row["Level"]) )
-    return transform
-
 def get_unique(qualifier, rows):
     unique = []
     for row in rows:
@@ -93,4 +84,16 @@ def gen_avg_maturity(parsed_csv_with_maturity):
         row["AverageMaturity"] = (row["CategoryMaturityTotal"] / row["NumberOfTopicsInCategory"]) * 100
     
     return transform
+
+def format_for_chart(parsed_csv):
+    transform = copy.deepcopy(parsed_csv)
+    unique_categories = get_unique("Category", transform)
+    populated_list = {}
+    for category in unique_categories:
+        category_rows = list(filter(lambda row: row["Category"] == category, transform))
+        final_average_maturity = category_rows[0]["AverageMaturity"]
+        # populated_list.append({category: final_average_maturity})
+        populated_list[category] = final_average_maturity
+    return [populated_list]
+
         
