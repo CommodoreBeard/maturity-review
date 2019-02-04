@@ -5,8 +5,7 @@ from flask_bootstrap import Bootstrap
 from werkzeug.utils import secure_filename
 
 from forms import CsvForm
-from csv_parser import parse, remove_nulls, gen_weighted_score, \
-    gen_max_weighted_score, gen_total_max_weighted_score_per_topic, gen_maturity, gen_avg_maturity, format_for_chart
+from data_handler import DataHandler
 from write_csv import write_full_data
 
 application = Flask(__name__)
@@ -23,23 +22,14 @@ def index():
     if form.validate_on_submit():
         f = form.csv.data
         filename = "raw_input.csv"
-        f.save(os.path.join(
-            application.instance_path, 'uploads', filename
-        ))
+        file_path = os.path.join(application.instance_path, 'uploads', filename)
+        f.save(file_path)
 
-        parsed = parse(os.path.join(
-            application.instance_path, 'uploads', filename
-        ))
+        data_handler = DataHandler(file_path)
+        processed = data_handler.process_data()
+        data_for_chart = data_handler.format_for_chart(processed)
 
-        parsed = remove_nulls(parsed)
-        parsed = gen_weighted_score(parsed)
-        parsed = gen_max_weighted_score(parsed)
-        parsed = gen_total_max_weighted_score_per_topic(parsed)
-        parsed = gen_maturity(parsed)
-        parsed = gen_avg_maturity(parsed)
-        data_for_chart = format_for_chart(parsed)
-
-        write_full_data(parsed, os.path.join(
+        write_full_data(processed, os.path.join(
             application.instance_path, 'processed', "processed.csv"))
         
         write_full_data(data_for_chart, os.path.join(
