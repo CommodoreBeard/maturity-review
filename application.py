@@ -4,7 +4,7 @@ from flask import Flask, render_template, send_file
 from flask_bootstrap import Bootstrap
 
 from forms import CsvForm
-from data_handler import DataHandler
+from data_handler import DataHandler, format_for_chart
 from write_csv import write_full_data
 
 application = Flask(__name__)
@@ -26,7 +26,7 @@ def index():
 
         data_handler = DataHandler(file_path)
         processed = data_handler.process_data()
-        data_for_chart = data_handler.format_for_chart(processed)
+        data_for_chart = format_for_chart(processed)
 
         write_full_data(processed, os.path.join(
             application.instance_path, 'processed', "processed.csv"))
