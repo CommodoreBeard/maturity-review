@@ -1,8 +1,7 @@
 import os
 
-from flask import Flask, render_template, request, redirect, url_for, send_file
+from flask import Flask, render_template, send_file
 from flask_bootstrap import Bootstrap
-from werkzeug.utils import secure_filename
 
 from forms import CsvForm
 from data_handler import DataHandler
@@ -10,8 +9,8 @@ from write_csv import write_full_data
 
 application = Flask(__name__)
 application.config.update(
-    DEBUG = True,
-    SECRET_KEY = 'secret_xxx'
+    DEBUG=True,
+    SECRET_KEY='secret_xxx'
 )
 
 Bootstrap(application)
@@ -20,10 +19,10 @@ Bootstrap(application)
 def index():
     form = CsvForm()
     if form.validate_on_submit():
-        f = form.csv.data
+        file = form.csv.data
         filename = "raw_input.csv"
         file_path = os.path.join(application.instance_path, 'uploads', filename)
-        f.save(file_path)
+        file.save(file_path)
 
         data_handler = DataHandler(file_path)
         processed = data_handler.process_data()
@@ -31,13 +30,18 @@ def index():
 
         write_full_data(processed, os.path.join(
             application.instance_path, 'processed', "processed.csv"))
-        
+
         write_full_data(data_for_chart, os.path.join(
             application.instance_path, 'processed', "data_for_chart.csv"))
 
         labels = list(data_for_chart[0].keys())
         values = list(data_for_chart[0].values())
-        return render_template('chart.html', title="Maturity Review", max=100, labels=labels, values=values)
+        return render_template(
+            'chart.html',
+            title="Maturity Review",
+            max=100,
+            labels=labels,
+            values=values)
 
     return render_template('index.html', form=form)
 
@@ -54,6 +58,7 @@ def download_chart_csv():
                      mimetype='text/csv',
                      attachment_filename='data_for_chart.csv',
                      as_attachment=True)
+
 
 if __name__ == '__main__':
     application.debug = True
