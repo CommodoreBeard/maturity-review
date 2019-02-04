@@ -19,27 +19,8 @@ class DataHandler:
             return [{k: v for k, v in row.items()}
                 for row in csv.DictReader(f, skipinitialspace=True)]
 
-    def remove_nulls(self, parsed_csv):
-        transform = copy.deepcopy(parsed_csv)
-        return list(filter(lambda row: row["Notes"].lower() != 'n/a', transform))
-
-    def gen_weighted_score(self, parsed_csv):
-        # Weighted Score = Score * Impact * (1+1/level)
-        transform = copy.deepcopy(parsed_csv)
-        for row in transform:
-            if (row["Score"] == '' or row["Impact"] == '' or row["Level"] == ''):
-                continue
-            row["WeightedScore"] = int(row["Score"]) * int(row["Impact"]) * ( 1 + 1 / int(row["Level"]) )
-        return transform
-
-    def gen_max_weighted_score(self, parsed_csv):
-        # Max Weighted Score = MaxLevel (2) * Impact * (1+1/Level)
-        transform = copy.deepcopy(parsed_csv)
-        for row in transform:
-            if (row["Impact"] == '' or row["Level"] == ''):
-                continue
-            row["MaxWeightedScore"] = 2 * int(row["Impact"]) * ( 1 + 1 / int(row["Level"]) )
-        return transform
+    def remove_nulls(self, data):
+        return list(filter(lambda row: row["Notes"].lower() != 'n/a', data))
 
     def get_unique(self, qualifier, rows):
         unique = []
@@ -48,63 +29,68 @@ class DataHandler:
                 unique.append(row[qualifier])
         return list(filter(lambda t: t != '', unique))
 
-    def gen_total_max_weighted_score_per_topic(self, parsed_csv_with_max_weighted_score):
+    def gen_weighted_score(self, parsed_csv):
+        # Weighted Score = Score * Impact * (1+1/level)
+        for row in parsed_csv:
+            if (row["Score"] == '' or row["Impact"] == '' or row["Level"] == ''):
+                continue
+            row["WeightedScore"] = int(row["Score"]) * int(row["Impact"]) * ( 1 + 1 / int(row["Level"]) )
+        return parsed_csv
+
+    def gen_max_weighted_score(self, parsed_csv):
+        # Max Weighted Score = MaxLevel (2) * Impact * (1+1/Level)
+        for row in parsed_csv:
+            if (row["Impact"] == '' or row["Level"] == ''):
+                continue
+            row["MaxWeightedScore"] = 2 * int(row["Impact"]) * ( 1 + 1 / int(row["Level"]) )
+        return parsed_csv
+
+    def gen_total_max_weighted_score_per_topic(self, data):
         # sum of max weighted score for each topic
-        transform = copy.deepcopy(parsed_csv_with_max_weighted_score)
-        unique_topics = self.get_unique("Topic", transform)
+        unique_topics = self.get_unique("Topic", data)
 
         for topic in unique_topics:
-            topic_score = 0
-            topic_rows = list(filter(lambda row: row["Topic"] == topic, transform))
-            for t in topic_rows:
-                topic_score += int(t.get("MaxWeightedScore"))
-            for row in transform:
+            topic_rows = list(filter(lambda row: row["Topic"] == topic, data))
+            topic_score = sum(int(row["MaxWeightedScore"]) for row in topic_rows)
+            for row in data:
                 if row["Topic"] == topic:
                     row["TotalMaxWeightedScoreForTopic"] = topic_score
+        return data
 
-        return transform
-
-    def gen_maturity(self, parsed_csv_with_total_max):
+    def gen_maturity(self, data):
         # maturity = weighted score /total max weighted score
-        transform = copy.deepcopy(parsed_csv_with_total_max)
-        for row in transform:
+        for row in data:
             if (not 'WeightedScore' in row or not 'TotalMaxWeightedScoreForTopic' in row):
                 continue
             row["Maturity"] = int(row["WeightedScore"]) / int(row["TotalMaxWeightedScoreForTopic"])
-        return transform
+        return data
 
-    def gen_avg_maturity(self, parsed_csv_with_maturity):
+    def gen_avg_maturity(self, data):
         # Avg Maturity = (Category Maturity Total/number of topics in category )*100"
-        transform = copy.deepcopy(parsed_csv_with_maturity)
-
-        unique_categories = self.get_unique("Category", transform)
+        unique_categories = self.get_unique("Category", data)
 
         for category in unique_categories:
-            total_maturity = 0
-            category_rows = list(filter(lambda row: row["Category"] == category, transform))
+
+            category_rows = list(filter(lambda row: row["Category"] == category and row.get("Maturity") != None, data))
             unique_topics = self.get_unique("Topic", category_rows)
-            for row in category_rows:
-                row["NumberOfTopicsInCategory"] = len(unique_topics)
-                if ("Maturity" not in row):
-                    continue
-                total_maturity += float(row["Maturity"])
-            for row in category_rows:
+            total_maturity = sum(float(row.get("Maturity")) for row in category_rows)
+        
+            for row in data:
+                if row["Category"] == category:
+                    row["NumberOfTopicsInCategory"] = len(unique_topics)
                     row["CategoryMaturityTotal"] = total_maturity
 
-        for row in transform:
-            if (not 'CategoryMaturityTotal' in row or not 'NumberOfTopicsInCategory' in row):
+        for row in data:
+            if not 'CategoryMaturityTotal' in row or not 'NumberOfTopicsInCategory' in row:
                 continue
             row["AverageMaturity"] = (row["CategoryMaturityTotal"] / row["NumberOfTopicsInCategory"]) * 100
-        
-        return transform
+        return data
 
-    def format_for_chart(self, processed_csv):
-        transform = copy.deepcopy(processed_csv)
-        unique_categories = self.get_unique("Category", transform)
+    def format_for_chart(self, data):
+        unique_categories = self.get_unique("Category", data)
         populated_list = {}
         for category in unique_categories:
-            category_rows = list(filter(lambda row: row["Category"] == category, transform))
+            category_rows = list(filter(lambda row: row["Category"] == category, data))
             final_average_maturity = category_rows[0]["AverageMaturity"]
-            # populated_list.append({category: final_average_maturity})
             populated_list[category] = final_average_maturity
         return [populated_list] 
