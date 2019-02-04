@@ -3,6 +3,7 @@
 __pycache__/
 venv/
 *.csv
+!/test/**/*.csv
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml

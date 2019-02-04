@@ -1,0 +1,109 @@
+﻿ID,Category,Topic,Scope,Level,Impact,Question,Score,"Weighted Score
+Score x Impact x(1+1/Level)","Max Weighted Score
+2 x Impact x(1+1/Level)",Total Max Weighted Score for the Topic (ie - sum of max weighted score for each topic),maturity = weighted score /total max weighted score ,Number of Topics in  category ,Avg Maturity = (Category Maturity Total/number of topics in category )*100,Notes
+94,Agile Practices,Scrum Practices,Team,1,3,Is development time boxed to 1 week - 1 month iterations?,2,12,12,48,0.25,2,100,
+95,Agile Practices,Scrum Practices,Team,1,3,Do sprints start with a Sprint Planning session?,2,12,12,48,0.25,2,,
+96,Agile Practices,Scrum Practices,Team,1,3,Does the team have daily stand-ups?,2,12,12,48,0.25,2,,
+97,Agile Practices,Scrum Practices,Team,1,3,Do sprints finish with a Sprint Review session?,2,12,12,48,0.25,2,,
+113,Agile Practices,Team,Team,1,2,Is the team stable?,2,8,8,44,0.181818182,2,,
+114,Agile Practices,Team,Team,1,3,Is each team < 10 people (excluding PO/SM roles)?,2,12,12,44,0.272727273,2,,
+115,Agile Practices,Team,Team,1,3,Is the team cross functional (i.e. do they have all skills necessary to deliver)?,2,12,12,44,0.272727273,2,,
+116,Agile Practices,Team,Team,1,3,Does the team understand Agile Manifesto and Values.,2,12,12,44,0.272727273,2,,
+287,Architecture,Architecture Governance,Team,1,2,Have architectural principles been established?,,0,8,88,0,3,90.15151515,
+288,Architecture,Architecture Governance,Team,1,3,Is there an architecture roadmap?,2,12,12,88,0.136363636,3,,
+289,Architecture,Architecture Governance,Team,1,3,"Does the architecture roadmap cover:
+- Technical debt
+- Break-up of monolithic systems and databases
+- Focus on areas of business differentiation
+- Mitigation of risk (e.g. vendor lock-in)
+- Technical SPOFs
+- Loosely coupled integration
+- Clean and enforced system interfaces",1,6,12,88,0.068181818,3,,
+290,Architecture,Architecture Governance,Application,1,2,Is there a technical debt log and is it maintained?,1,4,8,88,0.045454545,3,,There is a tech debt log in JIRA but is not maintained at the moment asthe team are cruising to hit MVP
+291,Architecture,Architecture Governance,Team,1,1,Is there a technical decision log and is it maintained?,2,4,4,88,0.045454545,3,,
+292,Architecture,Architecture Governance,Team,1,3,Are major technology decisions made with architecture input up-front and according to the architecture principles?,2,12,12,88,0.136363636,3,,
+293,Architecture,Architecture Governance,Team,1,2,"Is there a technology radar used to guide technology decisions towards strategic choices (in, out, investigate)?",,0,8,88,0,3,,to review this question
+294,Architecture,Architecture Governance,Team,1,3,Is there an application register listing all deployable components?,2,12,12,88,0.136363636,3,,
+295,Architecture,Architecture Governance,Application,1,3,"Does each component have a clear owner, and is that owner a (virtual) team (not an individual)? ",2,12,12,88,0.136363636,3,,
+300,Architecture,Knowledge,Team,1,2,"Are there documentation standards, templates or guides setting out minimum expected documentation?",2,8,8,32,0.25,3,,
+301,Architecture,Knowledge,Application,1,2,"Do systems have adequate technical documentation (architecture, design, data flow etc.) to support reviews and ongoing maintenance?",2,8,8,32,0.25,3,,
+302,Architecture,Knowledge,Application,1,2,Is all system documentation held in a common tool?,2,8,8,32,0.25,3,,
+303,Architecture,Knowledge,Application,1,2,Have Single Points of Knowledge been mitigated?,2,8,8,32,0.25,3,,
+307,Architecture,System Design,Application,1,3,"Are major systems isolated with clean, abstract interfaces so that they can be developed and tested independently?",2,12,12,24,0.5,3,,
+308,Architecture,System Design,Application,1,3,Are data domains bounded to system responsibilities (i.e. databases/data not shared by multiple systems)?,2,12,12,24,0.5,3,,
+158,DevOps,Automation,Application,1,2,Is deployment an atomic process?,2,8,8,28,0.285714286,7,80.86834734,
+159,DevOps,Automation,Application,1,3,Are application deployment scripts automated?,2,12,12,28,0.428571429,7,,
+160,DevOps,Automation,Application,1,2,Are application rollback scripts automated?,2,8,8,28,0.285714286,7,,
+178,DevOps,Environment Strategy,Team,1,2,Is there a documented Environment Strategy?,2,8,8,20,0.4,7,,
+179,DevOps,Environment Strategy,Team,1,3,Is the Environment Strategy applied - with clear ownership and responsibilities for all environments?,1,6,12,20,0.3,7,,
+183,DevOps,Infrastructure as Code,Team,1,3,Can environments be reliably created/destroyed following documented manual instructions?,2,12,12,36,0.333333333,7,,
+190,DevOps,Infrastructure as Code,Team,1,3,Have teams been trained on infrastructure as code?,2,12,12,36,0.333333333,7,,
+191,DevOps,Infrastructure as Code,Team,1,3,Have teams been trained on selected cloud provider(s)?,0,0,12,36,0,7,,No -GCP training needed?
+207,DevOps,Environment Governance,Team,1,3,"Are evironments available, reliable and actively maintained?",2,12,12,12,1,7,,
+258,DevOps,Logging,Team,1,3,Is there a consolidated logging service available to applications that is reliable and supported?,2,12,12,24,0.5,7,,
+259,DevOps,Logging,Application,1,3,Are all application logs pushed to the consolidated log service?,2,12,12,24,0.5,7,,
+263,DevOps,Monitoring,Application,1,2,"Does each application have a clear statement of what should be monitored, what performance metrics should be captured, how frequently and why?",0,0,8,68,0,7,,
+265,DevOps,Monitoring,Team,1,3,"Is there a monitoring & alerting strategy, covering:
+- Infrastructure (network, storage)
+- Servers
+- Common infrastructure services
+- Databases
+- Application status/health
+- Application performance
+- Security",2,12,12,68,0.176470588,7,,
+266,DevOps,Monitoring,Team,1,3,"Is automated monitoring in place for Infrastructure (network, storage etc.)?",2,12,12,68,0.176470588,7,,
+267,DevOps,Monitoring,Team,1,3,"Is automated monitoring in place for Servers (CPU, RAM, disk space)?",2,12,12,68,0.176470588,7,,
+268,DevOps,Monitoring,Team,1,3,"Is automated monitoring in place for Common services (e.g. ELK, RabbitMQ)?",2,12,12,68,0.176470588,7,,
+270,DevOps,Monitoring,Team,1,3,Is automated monitoring in place for Application status/health?,1,6,12,68,0.088235294,7,,All depends on monitoring inside K8s. Would be good to get monitoring from the internet and AWS resource monitoring.
+276,DevOps,Alerting,Team,1,2,Do alerts include actionable information?,1,4,8,8,0.5,7,,Links to monitoring system but no runbooks or actions.
+45,Product,Backlog,Team,1,3,Does a single Product Backlog exist for all types of work for the team?,2,12,12,36,0.333333333,4,83.33333333,
+47,Product,Backlog,Team,1,3,Are backlog items written as user stories?,2,12,12,36,0.333333333,4,,
+49,Product,Backlog,Team,1,3,Can all stories be completed in less than a week?,1,6,12,36,0.166666667,4,,Not all stories can be completed in a week
+56,Product,Roadmap,Team,1,3,Is there a product vision and roadmap that has been shared with the teams?,1,6,12,12,0.5,4,,There is no one single source of truth 
+64,Product,Roles,Team,1,3,Is there a full time dedicated Product Owner for the team?,2,12,12,36,0.333333333,4,,
+71,Product,Roles,Team,1,3,Is there a Product Manager role within the business supporting the team?,2,12,12,36,0.333333333,4,,
+73,Product,Roles,Team,1,3,Do business stakeholders understand agile principles and how to engage with the agile process?,2,12,12,36,0.333333333,4,,
+75,Product,Customers,Team,1,1,Do the team understand who their direct and indirect customers are?,2,4,4,4,1,4,,
+126,Quality Assurance,Approach,Team,1,3,Is there an agreed Definition of Done?,2,12,12,52,0.230769231,3,74.97905145,
+127,Quality Assurance,Approach,Team,1,3,Is the definition of done enforced during story sign-off?,2,12,12,52,0.230769231,3,,
+128,Quality Assurance,Approach,Team,1,2,Have expected quality metrics been defined?,0,0,8,52,0,3,,not collecting them yet 
+129,Quality Assurance,Approach,Team,1,3,Is there a quality heatmap showing systems rated against quality metrics?,,0,12,52,0,3,,N/A
+131,Quality Assurance,Approach,Team,1,2,Is quality seen as everybody's responsibility (or the role of testers)?,2,8,8,52,0.153846154,3,,
+138,Quality Assurance,Test Automation,Team,1,2,Have the team been trained on automated testing practices and tools?,2,8,8,68,0.117647059,3,,
+139,Quality Assurance,Test Automation,Application,1,3,Is Functional acceptance testing automation established? ,2,12,12,68,0.176470588,3,,
+140,Quality Assurance,Test Automation,Application,1,3,Does all new code have automated functional acceptance tests?,2,12,12,68,0.176470588,3,,
+141,Quality Assurance,Test Automation,Application,1,3,Are there automated smoke tests for testing the correctness of an environment?,1,6,12,68,0.088235294,3,,
+142,Quality Assurance,Test Automation,Application,1,3,Are there E2E tests that certify the whole product runs correctly in a (copy of) production?,2,12,12,68,0.176470588,3,,
+150,Quality Assurance,Test Automation,Application,1,3,Is test coverage sufficient to give confidence that any significant problems introduced will lead to at least 1 test failure?,2,12,12,68,0.176470588,3,,
+151,Quality Assurance,Test Data,Team,1,1,Is there a documented test data management process?,0,0,4,36,0,3,,Currently not documented 
+152,Quality Assurance,Test Data,Application,1,2,"Is sanitised, representative test data used for the majority of non-production environments?",2,8,8,36,0.222222222,3,,
+153,Quality Assurance,Test Data,Application,1,3,Is test data refreshed regularly and consistently across all environments?,1,6,12,36,0.166666667,3,,Need to look into it when we have IGL in place
+320,Quality Assurance,Test Data,Application,1,3,Is there an integration testing environment?,2,12,12,36,0.333333333,3,,
+422,Security,Level 1,Team,1,2,Do you have a documented Security Policy or standard?,1,4,8,40,0.1,1,50,
+423,Security,Level 1,Team,1,2,Do you keep track a track record of security related stories and security bugs within the product?,0,0,8,40,0,1,,Not tracked at the moment
+425,Security,Level 1,Team,1,2,What / Who is your point of contact regarding Security related  matters?,2,8,8,40,0.2,1,,
+426,Security,Level 1,Team,1,2,Do you have documented process to escalate security related incidents within the team and with other GfK teams?,0,0,8,40,0,1,,
+427,Security,Level 1,Team,1,2,"Do you seek advise from GfK Group IT Security team on application security related matters? If so, how often?",2,8,8,40,0.2,1,,JYLB is part of the design sessions
+2,Software Development,Source & Build,Application,1,3,Is source code managed in a modern source control system?,2,12,12,60,0.2,5,96.31372549,
+3,Software Development,Source & Build,Application,1,3,"Is the branching strategy Trunk-based and able to supports multiple parallel development streams, regular integration, release stabilisation and hot-fixes without contention?",2,12,12,60,0.2,5,,
+4,Software Development,Source & Build,Team,1,2,Are feature branches generally short-lived?,2,8,8,60,0.133333333,5,,
+5,Software Development,Source & Build,Team,1,2,Are code changes checked-in at least daily?,2,8,8,60,0.133333333,5,,
+6,Software Development,Source & Build,Team,1,1,Are check-in comments used consistently e.g. bug/task ID?,2,4,4,60,0.066666667,5,,
+8,Software Development,Source & Build,Application,1,1,Is code built on dedicated and supported build servers?,2,4,4,60,0.066666667,5,,
+10,Software Development,Source & Build,Application,1,1,Are binaries managed in a central binary repository?,2,4,4,60,0.066666667,5,,
+11,Software Development,Source & Build,Application,1,2,Are binaries versioned with semantice versioning?,1,4,8,60,0.066666667,5,,Image tag is used to differenciate the application deployed to various environments but libraries are semantic versioned 
+14,Software Development,Configuration Management,Application,1,3,Are binaries built once for deployment across multiple environments?,2,12,12,12,1,5,,
+18,Software Development,Continuous Integration,Application,1,3,Does committing changes to a main branch automatically trigger a build?,2,12,12,40,0.3,5,,
+21,Software Development,Continuous Integration,Application,1,3,Do unit tests run as part of the CI process with test failures preventing the build?,2,12,12,40,0.3,5,,
+22,Software Development,Continuous Integration,Application,1,2,"Do code quality checks run as part of the CI process, with failures preventing the build? ( score 3 complexity rules enforced?)",2,8,8,40,0.2,5,,
+23,Software Development,Continuous Integration,Application,1,2,Do functional acceptance tests run as part of CI process?,2,8,8,40,0.2,5,,
+25,Software Development,Code Quality,Team,1,2,Are there any coding standards/guides and are they used?,2,8,8,68,0.117647059,5,,
+27,Software Development,Code Quality,Team,1,3,Are code reviews performed for all changes?,2,12,12,68,0.176470588,5,,
+29,Software Development,Code Quality,Team,1,1,Are code reviews formalised? (e.g. checklist),2,4,4,68,0.058823529,5,,
+30,Software Development,Code Quality,Team,1,3,Do code reviews refer back to the story definition?,2,12,12,68,0.176470588,5,,
+31,Software Development,Code Quality,Team,1,3,Do code reviews include reviewing the quality and coverage of unit tests?,2,12,12,68,0.176470588,5,,
+32,Software Development,Code Quality,Team,1,2,Are code review issues captured and resolved?,2,8,8,68,0.117647059,5,,
+35,Software Development,Unit testing,Team,1,3,Do all developers write automated unit tests?,2,12,12,24,0.5,5,,
+37,Software Development,Unit testing,Team,1,3,Are unit tests created as part of bug fix process to automate regression testing?,2,12,12,24,0.5,5,,
+402,Software Development,Code Quality,Team,1,1,Is technical debt tagged and tracked in JIRA,2,4,4,68,0.058823529,5,,
+403,Software Development,Code Quality,Team,1,2,Is technical debt prioritised together with functional stories,0,0,8,68,0,5,,Not at the moment as the team are cruising for MVP
