@@ -14,7 +14,7 @@
     <h1>{{ title }}</h1>
   </center>
   <center>
-    <canvas id="chart" width="600" height="400"></canvas>
+    <canvas id="chart" width="600" height="400" style="margin-bottom:20px;"></canvas>
     <script>
       // bar chart data
       var barData = {
@@ -49,9 +49,16 @@
        scaleShowGridLines : true,
        barShowStroke : true,
        scaleShowLabels: true
-       }
-     );
+     });
     </script>
+    <div>
+        <form action="/download_raw">
+            <button class="btn btn-primary" type="submit" style="margin-bottom:20px;">Download Raw Data</button>
+        </form>
+        <form action="/download_chart">
+            <button class="btn btn-primary" type="submit">Download Chart Data</button>
+        </form>
+    </div>
   </center>
 </body>
 </html>

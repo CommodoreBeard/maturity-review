@@ -84,7 +84,7 @@ class CsvParseSpec(unittest.TestCase):
         parsed = gen_maturity(parsed)
         parsed = gen_avg_maturity(parsed)
         actual = format_for_chart(parsed)
-        write(actual, "output.csv")
+        write_full_data(actual, "output.csv")
         self.assertEqual(actual[0]["AverageMaturity"], 100)
         self.assertEqual(actual[40]["AverageMaturity"], 80.86834733893559)
         self.assertEqual(actual[48]["AverageMaturity"], 83.33333333333333)

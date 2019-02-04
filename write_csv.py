@@ -1,6 +1,6 @@
 import csv
 
-def write(csv_as_dict, path):
+def write_full_data(csv_as_dict, path):
 
     with open(path, 'w') as f:
         w = csv.DictWriter(f, csv_as_dict[0].keys())
